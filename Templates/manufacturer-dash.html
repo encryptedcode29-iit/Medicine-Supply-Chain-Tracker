@@ -1,0 +1,35 @@
+
+    {% extends "base.html" %}
+    {% block sidebar%}
+            <div class="sidebar" id="sidebar">
+            <div class="sections">
+                <a href="#" class="nav icon">
+                    <img src="\static\images\logo.jpg" alt="_Logo_"
+                        width="85px" height="75px">
+                </a>
+
+                
+                <hr style="width:90%; border: 1px solid rgb(210,210,210);">
+                <a href="#" class="elem"> 📊 Dashboard</a>
+                <a href="/manufacturer/create-batch" class="elem"> ➕ Create Batch</a>
+                <a href="/manufacturer/outgoing" class="elem"> 🚚 Outgoing Shipments</a>
+                <a href="/manufacturer/history" class="elem"> 📦 Batch History</a>
+            </div>
+            <div class="logout">
+                <a href="/logout" class="logout-btn">🚪Logout</a>
+            </div>
+        </div>
+
+
+
+
+
+    {%endblock%}
+
+{% block content %}
+<h1>Manufacturer Dashboard</h1>
+
+<div class="card">Total Batches: 3</div>
+<div class="card">Pending Shipments: 1</div>
+<div class="card">Completed: 5</div>
+{% endblock %}

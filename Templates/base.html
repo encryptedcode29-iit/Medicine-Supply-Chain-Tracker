@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="/static/images/logo.jpg">
+
+    <title>{{ title }}</title>
+
+
+
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            font-family: 'Courier New', Courier, monospace;
+
+        }
+
+        .main {
+            display: flex;
+            flex-direction: row;
+            height: 100%;
+            background: linear-gradient();
+            overflow: hidden;
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            width: 300px;
+            height: 100%;
+            gap: 10px;
+            border-radius: 5px;
+
+            box-shadow: 3px 3px 10px 5px rgb(166, 166, 180);
+            padding-top: 10px;
+            overflow: hidden;
+            transition: width 1s ease, opacity 1s ease, padding 1s ease;
+            flex-shrink: 0;
+        }
+
+
+        .sidebar.hidden {
+            width: 0;
+            opacity: 0;
+            padding: 0;
+        }
+
+        #toggleButton.hidden {
+            position: fixed;
+        }
+
+        .sections {
+            width: 100%;
+        }
+
+        .icon {
+            display: flex;
+            justify-content: center;
+            padding-bottom: 10px;
+        }
+
+        .elem {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            width: 90%;
+            margin: auto;
+            font-size: 15px;
+            text-decoration: none;
+            color: rgb(54, 54, 54);
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .elem:hover {
+            background-color: rgb(162, 162, 255);
+            font-size: 16px;
+        }
+
+        .logout {
+            margin-top: auto;
+            width: 100%;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .logout-btn {
+            display: block;
+            width: 90%;
+            margin: auto;
+            padding: 10px;
+            font-size: 17px;
+            border-radius: 8px;
+            text-align: center;
+            font-family: 'Courier New', Courier, monospace;
+            text-decoration: none;
+            font-weight: bold;
+            color: rgb(249, 115, 115);
+            transition: 0.3s;
+        }
+
+        .logout-btn:hover {
+            background-color: rgb(236, 52, 52);
+            color: white;
+            font-size: 18px;
+        }
+
+        .main-content {
+            margin: 0;
+            padding: 10px;
+            width: 100%;
+            overflow-y: auto;
+
+        }
+
+        .content {
+            display: flex;
+            flex-direction: row;
+            height: auto;
+            margin-top: 40px;
+            gap: 20px;
+
+        }
+
+        .card {
+            display: flex;
+            text-align: center;
+            height: 120px;
+            flex: 1;
+            max-width: 250px;
+            padding: 20px;
+            margin: 2px auto;
+            border: 1px solid black;
+            font-size: 17px;
+            background: radial-gradient(circle at center, rgba(182, 148, 255, 0.492) 20%, rgb(135, 71, 255) 80%);
+            border-radius: 20px;
+            font-weight: 600;
+            justify-content: center;
+            box-shadow: 5px 10px 5px rgb(187, 186, 186);
+            align-items: center;
+            transition: 1s all ease-in;
+            box-sizing: border-box;
+        }
+
+        .card:hover {
+            cursor: pointer;
+            background: linear-gradient(to left, rgb(130, 116, 255) 20%, rgba(82, 180, 255, 0.605) 80%);
+            color: rgb(48, 48, 48);
+            font-size: 20px;
+            transition: 0.5s;
+
+        }
+
+        table {
+            width: 75%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            font-family: 'Inter', sans-serif;
+
+            background-color: white;
+            transition: 1s;
+        }
+
+        th,
+        td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: rgb(162, 162, 255);
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        @media (max-width : 600px) {
+            .sidebar {
+                width: 90%;
+                flex-shrink: 0;
+                position: fixed;
+                background-color: white;
+
+            }
+
+            .card {
+                font-weight: 400;
+                padding: 10px;
+                gap: 10px;
+            }
+
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        {% block sidebar %}{% endblock %}
+        <div class="main-content">
+            <button onclick="toggleSidebar()" id="toggleButton"> Close Sidebar </button>
+
+            <div class="info">
+
+                <h2>Details of your Company</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Property</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Name</td>
+                            <td>{{fname}}</td>
+                        </tr>
+                        <tr>
+                            <td>Email</td>
+                            <td>{{email}}</td>
+                        </tr>
+                        <tr>
+                            <td>Organization Name</td>
+                            <td>{{orgname}}</td>
+                        </tr>
+                        <tr>
+                            <td>Role</td>
+                            <td>{{role}}</td>
+                        </tr>
+                        <tr>
+                            <td>Registration ID</td>
+                            <td>{{regCode}}</td>
+                        </tr>
+                        <tr>
+                            <td>Cases of Tampering found against you</td>
+                            <td>{{stat}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById("sidebar");
+            const button = document.getElementById("toggleButton");
+            const table_data = document.querySelector("table")
+
+            sidebar.classList.toggle("hidden");
+            button.classList.toggle("hidden");
+
+            if (sidebar.classList.contains("hidden")) {
+                button.textContent = "Open Sidebar";
+                table_data.style.width = "60%";
+            } else {
+                button.textContent = "Close Sidebar";
+                table_data.style.width = "75%";
+            }
+        }
+    </script>
+    <script>
+        function autoCloseSidebarOnMobile() {
+            const sidebar = document.getElementById("sidebar");
+            const button = document.getElementById("toggleButton");
+
+            if (window.innerWidth < 600) {
+                if (!sidebar.classList.contains("hidden")) {
+                    sidebar.classList.add("hidden");
+                    button.textContent = "Open Sidebar";
+                }
+            }
+        }
+
+        autoCloseSidebarOnMobile();
+
+        window.addEventListener("resize", autoCloseSidebarOnMobile);
+    </script>
+
+</body>
+
+</html>
+
+
+

@@ -1,0 +1,110 @@
+{% extends "create-base.html" %}
+
+{% block sidebar%}
+<div class="sidebar" id="sidebar">
+    <div class="sections">
+        <a href="#" class="nav icon">
+            <img src="\static\images\logo.jpg" alt="_Logo_" width="85px" height="75px">
+        </a>
+
+
+        <hr style="width:100%; border: 1px solid rgb(210,210,210);">
+        <a href="/manufacturer/dashboard" class="elem"> 📊 Dashboard</a>
+        <a href="#" class="elem"> ➕ Create Batch</a>
+        <a href="/manufacturer/outgoing" class="elem"> 🚚 Outgoing Shipments</a>
+        <a href="/manufacturer/history" class="elem"> 📦 Batch History</a>
+    </div>
+
+
+
+    <div class="logout">
+        <a href="/logout" class="logout-btn">🚪Logout</a>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block formcontainer %}
+<form action="/manufacturer/create-batch" method="POST" enctype="multipart/form-data">
+<div class="formcontainer">
+
+        <div class="form">
+            <h1>Enter Details of the batch</h1>
+
+            <hr style="width:100%; border: 1px solid rgb(210,210,210);">
+            <div class="ids">
+                <div class="idcontent">
+                    <label style="display: inline;" for="mfgID">Manufacturer ID</label>
+                    <input type="text" name="mfgID" id="mfgID" value="{{mfgID}}" style="background-color: rgb(235, 235, 235);" readonly>
+
+                </div>
+                <div class="idcontent">
+
+                    <label style="display: inline;" for="orgnm">Organization Name</label>
+                    <input type="text" name="orgnm" id="orgnm" value="{{orgnm}}" style="background-color: rgb(235, 235, 235);" readonly>
+                </div>
+
+            </div>
+
+            <h3 style="width: 100%;">Details of the medicine</h3>
+
+            <div class="ids">
+                <div class="idcontent">
+
+                    <label for="medname">Medicine Name</label>
+                    <input type="text" name="medname" id="medname">
+                </div>
+                <div class="idcontent">
+
+                    <label for="qty">Quantity</label>
+                    <input type="text" name="qty" id="qty">
+                </div>
+            </div>
+            <br><br>
+            <div class="ids">
+                <div class="idcontent dmfg">
+                    <label for="mfgdate">Date of Manufacture</label>
+                    <input type="date" name="mfgdate" id="mfgdate">
+                </div>
+                <div class="idcontent">
+
+                    <label for="expdate">Date of Expiry</label>
+                    <input type="date" name="expdate" id="expdate">
+                </div>
+            </div>
+            <hr style="width:100%; border: 1px solid rgb(210,210,210);">
+            <br>
+            <label for="description" style="width: 100%;">Description\procedure of handling or warning (if any)</label>
+            <textarea name="description" id="description" style="margin-top: 10px;"
+                placeholder="Optional description about this batch"></textarea>
+            <br><br>
+            <div class="ids">
+                <div class="idcontent">
+                    <label>Certificate (PDF / Image)</label>
+                    <input type="file" name="certificate" id="certificate" accept=".pdf,image/*">
+                </div>
+                <div class="idcontent">
+                    <label>Lab Report (optional)</label>
+                    <input type="file" name="labReport" id="labReport" accept=".pdf,image/*">
+                </div>
+            </div>
+
+
+
+
+
+
+            <br>
+            <div class="btn-base">
+                <button type="submit" class="btn">Create Genesis Block</button>
+                <button type="button" class="btn secondary"
+                    onclick="window.location.href='/manufacturer/dashboard'">Cancel</button>
+            </div>
+
+
+        </div>
+    </div>
+</form>
+
+{% endblock %}

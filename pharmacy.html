@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pharmacy Dashboard</title>
+    <style>
+        body { margin:0; font-family:Arial; background:#f9fafb }
+        .navbar { background:#222; color:white; padding:15px; font-size:20px }
+        .container { padding:30px }
+        .card {
+            background:white; padding:20px;
+            border-radius:10px; margin-bottom:20px;
+            box-shadow:0 0 10px rgba(0,0,0,0.15)
+        }
+        input {
+            width:100%; padding:10px; margin:8px 0;
+            border-radius:6px; border:1px solid #bbb
+        }
+        button {
+            padding:10px; background:#FF9800; color:white;
+            border:none; border-radius:6px; cursor:pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar">Pharmacy Dashboard</div>
+
+    <div class="container">
+
+        <div class="card">
+            <h3>Confirm Final Receipt</h3>
+
+            <label>Batch ID</label>
+            <input type="text">
+
+            <label>Receiving Notes</label>
+            <input type="text">
+
+            <button>Confirm & Add Final Block</button>
+        </div>
+
+        <div class="card">
+            <h3>Completed Deliveries</h3>
+            <p>History of received batches will appear here.</p>
+        </div>
+
+    </div>
+</body>
+</html>

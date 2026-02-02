@@ -1,0 +1,94 @@
+{% extends "create-base.html" %}
+
+{% block sidebar%}
+<div class="sidebar" id="sidebar">
+    <div class="sections">
+        <a href="#" class="nav icon">
+            <img src="\static\images\logo.jpg" alt="_Logo_" width="85px" height="75px">
+        </a>
+
+
+        <hr style="width:100%; border: 1px solid rgb(210,210,210);">
+        <a href="/manufacturer/dashboard" class="elem"> 📊 Dashboard</a>
+        <a href="/manufacturer/create-batch" class="elem"> ➕ Create Batch</a>
+        <a href="/manufacturer/outgoing" class="elem"> 🚚 Outgoing Shipments</a>
+        <a href="/manufacturer/history" class="elem"> 📦 Batch History</a>
+    </div>
+
+
+
+    <div class="logout">
+        <a href="/logout" class="logout-btn">🚪Logout</a>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block formcontainer %}
+<form action="/manufacturer/forward" method="POST" enctype="multipart/form-data">
+<div class="formcontainer">
+
+        <div class="form" style="padding: 15px 10px 30px 10px;">
+            <h1>Enter Details of the batch shipment</h1>
+
+            <hr style="width:100%; border: 1px solid rgb(210,210,210);">
+            <div class="ids">
+                <div class="idcontent">
+                    <label style="display: inline;" for="mfgID">Batch ID</label>
+                    <input type="text" name="batchID" id="batchID" value="{{batchID}}" style="background-color: rgb(235, 235, 235);" readonly>
+
+                </div>
+                <div class="idcontent">
+
+                    <label style="display: inline;" for="disID">Distributor ID</label>
+                    <input type="text" name="disID" id="disID">
+                </div>
+
+            </div>
+
+            <h3 style="width: 100%;">Batch Transport Details</h3>
+
+            <div class="ids">
+                <div class="idcontent">
+
+                    <label for="dvrname">Name of Driver</label>
+                    <input type="text" name="dvrname" id="dvrname">
+                </div>
+                <div class="idcontent">
+
+                    <label for="vnum">Vehicle Number</label>
+                    <input type="text" name="vnum" id="vnum">
+                </div>
+            </div>
+            <br><br>
+            <div class="ids">
+                <div class="idcontent dmfg">
+                    <label for="shipdate">Date of Shipment</label>
+                    <input type="date" name="shipdate" id="shipdate">
+                </div>
+                <div class="idcontent dmfg">
+
+                    <label for="deldate">Arrival in Depot</label>
+                    <input type="date" name="deldate" id="deldate">
+                </div>
+            </div>
+
+
+
+
+
+
+            <br>
+            <div class="btn-base">
+                <button type="submit" class="btn">Create Shipment Block</button>
+                <button type="button" class="btn secondary"
+                    onclick="window.location.href='/manufacturer/outgoing'">Cancel</button>
+            </div>
+
+
+        </div>
+    </div>
+</form>
+
+{% endblock %}

@@ -1,0 +1,161 @@
+{% extends "create-base.html" %}
+{% block sidebar %}
+<div class="sidebar" id="sidebar">
+  <div class="sections">
+    <a href="#" class="nav icon">
+      <img src="\static\images\logo.jpg" alt="_Logo_" width="85px" height="75px">
+    </a>
+
+
+    <hr style="width:90%; border: 1px solid rgb(210,210,210);">
+    <a href="/pharmacy/dashboard" class="elem">📊 Dashboard</a>
+    <a href="/pharmacy/get" class="elem">📦 Incoming Batches</a>
+    <a class="elem" href="/pharmacy/history">🚚 Batch History</a>
+  </div>
+  <div class="logout">
+    <a href="/logout" class="logout-btn">🚪Logout</a>
+  </div>
+</div>
+{% endblock %}
+
+{% block formcontainer %}
+
+
+<style>
+  .damage {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+
+  .hid {
+    display: none;
+  }
+
+  
+</style>
+
+</style>
+
+
+<body>
+
+
+
+  <form action="/pharmacy/verify" id="pharmacyForm" method="POST" enctype="multipart/form-data">
+    <div class="formcontainer">
+      <div class="form">
+        <h2 style="text-align: center;">Verification of the Batch - {{batchID}}</h2>
+        <hr style="width:100%; border: 1px solid rgb(210,210,210);">
+
+        <div class="ids">
+          <div class="idcontent">
+
+            <label for="batchID">Batch ID</label>
+            <input type="text" id="batchID" name="batchID" readonly value="{{batchID}}">
+          </div>
+          <div class="idcontent">
+
+            <label for="condition">Package Condition</label>
+            <select id="condition" name="condition" required>
+              <option value="">Select</option>
+              <option value="OK">OK</option>
+              <option value="DAMAGED">DAMAGED</option>
+            </select>
+          </div>
+        </div>
+        <div class="ids damn">
+
+            <label for="deldate">Delivery date</label>
+            <input type="date" id="deldate" name="deldate">
+          </div>
+
+        <div class="safe hid"> 
+          <input type="checkbox" value="True" name="correctBatch" id="correctBatch"> 
+          <label for="correctBatch">I hereby certify the validity of the batch supplied.</label><br>
+
+          <input type="checkbox" value="True" name="matchQty" id="matchQty">
+          <label for="matchQty">I hereby confirm that the quantity supplied is accurate.</label><br>
+
+          <input type="checkbox" value="True" name="batchExp" id="batchExp">
+          <label for="batchExp">I confirm that the expiry date matches the official batch documentation.</label><br>
+
+          <input type="checkbox" value="True" name="confirm" id="confirm">
+          <label for="confirm">I confirm that any subsequent damage shall be my sole responsibility.</label>
+        </div>
+        <div id="damagedFields" class="hid damage">
+
+          <div class="ids">
+            <div class="idcontent">
+              <label for="totalQty">Quantity Received</label>
+              <input type="number" id="totalQty" name="totalQty">
+            </div>
+            <div class="idcontent">
+              <label for="safeQty">Quantity not damaged</label>
+              <input type="number" id="safeQty" name="safeQty">
+            </div>
+          </div>
+          <div class="ids damn">
+
+            <label for="damagedQty">Damaged Quantity</label>
+            <input type="number" id="damagedQty" name="damagedQty" readonly>
+          </div>
+
+          <br>
+          <label for="description" style="width: 100%;">Description of Damage</label>
+          <textarea name="description" id="description" style="margin-top: 10px;"
+            placeholder="Description about the damaged items"></textarea>
+          <br><br>
+          <div class="idcontent" style="margin: 25px 0 0 45px;">
+
+            <label for="evidence">Upload Evidence (Photo/PDF)</label>
+            <input type="file" id="evidence" name="evidence" accept=".jpg,.jpeg,.png,.pdf">
+          </div>
+        </div>
+
+
+
+        <button type="submit" style="margin-top: 35px;" class="btn">Submit Verification</button>
+      </div>
+    </div>
+  </form>
+
+  <script>
+    const conditionSelect = document.getElementById('condition');
+    const damagedFields = document.getElementById('damagedFields');
+    const totalQty = document.getElementById('totalQty');
+    const safeQty = document.getElementById('safeQty');
+    const safe = document.querySelector('.safe');
+    const damagedQty = document.getElementById('damagedQty');
+
+    conditionSelect.addEventListener('change', () => {
+      const val = conditionSelect.value;
+      if (val === "DAMAGED") {
+        damagedFields.classList.remove('hid');
+        safe.classList.add('hid');
+
+      }else if(val == "OK"){
+        damagedFields.classList.add('hid');
+        safe.classList.remove('hid');
+      } else {
+        damagedFields.classList.add('hid');
+        safe.classList.add('hid');
+      }
+    });
+
+    safeQty.addEventListener('input', () => {
+      const t = parseInt(totalQty.value) || 0;
+      const r = parseInt(safeQty.value) || 0;
+      damagedQty.value = Math.max(t - r, 0);
+      if (damagedQty.value == 0) {
+        event.preventDefault()
+        alert("tori mai ka chodo.")
+      }
+    });
+
+
+
+  </script>
+  {% endblock %}

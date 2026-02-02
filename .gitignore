@@ -1,0 +1,13 @@
+# Virtual environments
+venv/
+cyberenv/
+
+# Python cache
+__pycache__/
+*.pyc
+*.txt
+
+# Secrets
+.env
+*.json
+*.pdf

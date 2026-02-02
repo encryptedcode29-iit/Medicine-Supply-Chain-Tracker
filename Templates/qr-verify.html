@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medicine Supply Chain</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode/1.4.4/qrcode.js"
+        integrity="sha512-oxrVyBhqnzQ0BzuM0A/6dEIk0alz0p4SpDRaWvtuUoarIc8rnL5lVniHG5Dp21MRFojcQcmKHjaskNXhSaUPPw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <style>
+        :root {
+            --overlay-color: rgba(25, 35, 85, 0.65);
+            --accent-color: #f5c400;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Merriweather", serif;
+            background-color: #ededed;
+        }
+
+        .content {
+            justify-content: flex-start;
+        }
+
+
+        header.cover {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            background:
+
+                url("static\\images\\bg.png");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .card {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+
+
+        nav {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 60px;
+
+        }
+
+        nav img {
+            width: 70px;
+        }
+
+        .menu a {
+            margin-left: 30px;
+            text-decoration: none;
+            color: #1e1e1e;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+
+        .content {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            padding: 80px 80px 0;
+        }
+
+        .intro {
+            width: 55%;
+            color: #1e1e1e;
+            backdrop-filter: blur(6px);
+            background-color: #f9f9fa;
+            padding: 40px;
+            border-radius: 14px;
+        }
+
+        .main-title {
+            font-size: 40px;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .main-text {
+            font-style: italic;
+            font-size: 17px;
+            font-weight: 300;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+
+        .btn {
+            padding: 14px 36px;
+            border-radius: 30px;
+            border: none;
+            background-color: var(--accent-color);
+            color: black;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .description {
+            width: 100%;
+            margin-top: 25px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            align-items: center;
+            padding: 10px 0 10px 0;
+            align-items: stretch;
+            transition: 10s;
+
+        }
+
+
+
+        .footer-main-wrapper {
+            background-color: #876eff92;
+            padding-bottom: 20px;
+
+        }
+
+        .ids {
+            width: 100%;
+            display: flex;
+            gap: 100px;
+            margin-top: 20px;
+            justify-content: center;
+
+        }
+
+        .idcontent {
+            width: 35%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+
+
+
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(25px);
+            animation: fadeUp 1s ease forwards;
+        }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 1060px) {
+            .idcontent {
+                width: 100%;
+                margin: 5px 0 5px 0;
+                gap: 4px;
+
+            }
+
+            .ids {
+                width: 95%;
+                margin-top: 10px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            nav {
+                padding: 20px 30px;
+            }
+
+            .idcontent {
+                width: 100%;
+                flex-direction: row;
+                margin: 5px 0 5px 0;
+                gap: 4px;
+
+            }
+
+            .ids {
+                flex-direction: column;
+                width: 90%;
+                gap: 10px;
+
+            }
+
+            ul {
+                padding: 0;
+            }
+
+            .description {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+
+
+
+            .content {
+                padding: 0 15px;
+            }
+
+            .intro {
+                width: 100%;
+                background-color: #f9f9fa;
+            }
+
+            .main-title {
+                font-size: 38px;
+            }
+
+            .main-text {
+                font-size: 16px;
+            }
+
+            .menu a {
+                margin-left: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="cover">
+        <nav>
+            <img src="static\images\logo.png" alt="Logo">
+            <div class="menu">
+                <a href="/">Home</a>
+                <a style="cursor: pointer;" onclick="window.scrollTo(0, 700)">About</a>
+                <a href="#">Pricing</a>
+                <a href="/login">Login</a>
+            </div>
+        </nav>
+
+        <div class="content">
+            <div class="intro fade-in">
+                <h1 class="main-title">
+                    Verify a Batch
+                </h1>
+                <div class="centerer">
+
+                    <form action="/verify" method="post">
+
+                        <br>
+                        <label for="name" class="form-label"><b>Enter Batch ID</b></label><br>
+                        <input type="text" autofocus style="text-transform: capitalize;"
+                            placeholder="MFGXXX-YYYYMMDD-XXXX" name="batchID" class="form-control" id="batchID"><br>
+
+
+
+                        <input type="submit" value="Submit" class="btn btn-primary form-control"><br><br>
+
+                    </form>
+
+                </div>
+                <div class="form-control error"
+                    style="display: none;background-color: rgb(255, 126, 126);color: white;text-align: center; font-size: 20px; font-weight: 300;width: 100%;">
+                    <p style="margin: 0;">Batch ID does not exist</p>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+    </header>
+    <div class="description">
+        {% if batch %}
+        <script>
+            window.addEventListener('DOMContentLoaded', (event) => {
+                setTimeout(() => {
+                    window.scrollTo({
+                        top: 550,
+                        behavior: 'smooth'
+                    });
+                }, 100);
+            });
+        </script>
+        <div class="card" style="opacity: 1;width: 90%;gap: 0">
+            <h1>Batch Details</h1>
+            <hr style="width:90%; border: 1px solid rgb(210,210,210);">
+            <h5><u>Batch ID</u> &emsp; <u>{{batchID}}</u></h5>
+            <div class="ids">
+                <div class="idcontent">
+
+                    <span>Medicine Name</span>
+                    {{batch[0].get("data").get("medname")}}
+                </div>
+                <div class="idcontent">
+
+                    <span>Quantity</span>
+                    {{batch[0].get("data").get("quantity")}}
+                </div>
+            </div>
+            <div class="ids">
+                <div class="idcontent">
+                    <span>Mfg Date</span>
+                    {{batch[0].get("data").get("mfgdate")}}
+                </div>
+                <div class="idcontent">
+                    <span>Exp date</span>
+                    {{batch[0].get("data").get("expdate")}}
+                </div>
+            </div>
+            <div class="ids">
+                <div class="idcontent">
+                    <span>Ceritificate</span>
+                    <a href="{{batch[0].get('data').get('files').get('certificate')}}">Download Certificate</a>
+                </div>
+                <div class="idcontent">
+                    <span>Lab Report</span>
+                    {% if batch[0].get('data').get('files').get('labReport') %}
+                    <a href="{{batch[0].get('data').get('files').get('labReport')}}">Download Report</a>
+                    {% else %}
+                    Not Uploaded
+                    {% endif %}
+                </div>
+            </div>
+
+
+            {% if length > 1 %} <br><br>
+            <h3>Distributor Details</h3>
+            <div class="ids">
+                <div class="idcontent">
+                    <span>Manufacturer Organization</span>
+                    {{batch[0].get("data").get("MfgOrgName")}}
+                </div>
+                <div class="idcontent">
+                    <span>Distributor Organization</span>
+                    {{batch[1].get("data").get("DisOrgName")}}
+                </div>
+            </div>
+            {% else %}
+            {% endif %}
+            {% if length > 2 %}
+            <div class="ids">
+                <div class="idcontent">
+                    <span>Ship date</span>
+                    {{batch[2].get("data").get("shipdate")}}
+
+                </div>
+                <div class="idcontent">
+                    <span>Delivery date</span>
+                    {{batch[2].get("data").get("estdate")}}
+                </div>
+            </div>
+
+            <br><br>
+            <h3>Pharmacy Details</h3>
+            <div class="ids" style="flex-direction: column; gap: 0; ">
+                <div class="idcontent" style="justify-content: space-around;width: 100%;">
+                    <span>Pharmacy Organization</span>
+                    {{batch[2].get("data").get("PhmOrgName")}}
+
+                </div>
+
+                {% else %}
+                {% endif %}
+                {% if length > 3 %}
+                <div class="idcontent">
+                    <span>Batch Accepted</span>
+                    {{batch[3].get("data").get("responsibility")}}
+                </div>
+            
+
+
+
+            {% endif %}
+            {% if length == 1 %}
+            <div class="ids">
+
+                <div class="idcontent">
+                    <span>Manufacturer Organization</span>
+                    {{batch[0].get("data").get("MfgOrgName")}}
+                </div>
+                <div class="idcontent">
+                    <span>Status</span>{{status}}
+                </div>
+            </div>
+            {% else %}
+            
+            <br>
+                {% if tamper %}
+                <div class="form-control error" style="display: flex;justify-content: center;align-items: center;background-color: rgb(152, 171, 253);color: rgb(2, 6, 48);text-align: center; font-size: 18px; font-weight: 200;width: 100%;height: 70px;margin-bottom: 55px;">
+                    
+                    <p style="margin: 0;"><span>Status : &emsp;&emsp; </span>{{status}}</p>
+                </div>
+                {% else %}
+                <div class="form-control error" style="display: flex;justify-content: center;align-items: center;background-color: rgba(223, 73, 78, 0.659);color: rgb(119, 2, 22);text-align: center; font-size: 18px; font-weight: 200;width: 100%;height: 70px;margin-bottom: 55px;">
+                    
+                    <p style="margin: 0;"><span>Status : &emsp;&emsp; </span>{{status}}</p>
+                </div>
+                {% endif %}
+            {% endif %}
+            <button class="btn btn-primary" id="qrCodeGen">Generate QR</button>
+            <div class="qrcode" style="display: none; padding-top: 25px;">
+                <img id="qrCodeImg" alt="qrcode" width="300px" height="300px">
+            </div></div>
+
+        </div>
+        {% elif msg %}
+        
+        <script>
+            document.querySelector(".error").style.display = "block";
+        </script>
+        {% else %}
+        {% endif %}
+    </div><br><br>
+
+    <footer class="footer-main-wrapper">
+        <svg class="footer-curve" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 200">
+            <path fill="#ededed" fill-opacity="1"
+                d="M0,64L48,69.3C96,75,192,85,288,74.7C384,64,480,32,576,42.7C672,53,768,107,864,128C960,149,1056,139,1152,122.7C1248,107,1344,85,1392,74.7L1440,64L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z">
+            </path>
+        </svg>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="footer-content text-center">
+                        <div class="footer-logo-text">
+                            <h3>Medicine Supply Chain Management Portal</h3>
+                        </div>
+                        <a style="color: #2727ff;" href="tel:+919499988888">+91 94999 88888</a>
+                        <p><a style="color: #2727ff;" href="mailto:support@example.com">support@example.com</a>
+                        </p>
+                        <p>IIT ISM Dhanbad</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom-copyright">
+            <div class="container">
+                <div class="col-md-12">
+                    <div class="footer-copyright-text text-center">
+                        <p style="margin: 0;">Management Portal © 2025</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+{% if batch %}
+{% set b = batch[0].get("data") %}
+
+<script>
+    const btn = document.getElementById("qrCodeGen");
+    const qrimg = document.getElementById("qrCodeImg");
+
+    btn.addEventListener("click", () => {
+
+
+        const batchData = {
+            batchId: "{{ batchID }}",
+            medicineName: "{{ b.medname }}",
+            quantity: "{{ b.quantity }}",
+            mfgDate: "{{ b.mfgdate }}",
+            expDate: "{{ b.expdate }}",
+            manufacturerOrg: "{{ b.MfgOrgName }}",
+            status: "{{ status }}"
+        };
+
+        {% if length > 1 %}
+        Object.assign(batchData, {
+            distributorOrg: "{{ batch[1].get('data').get('DisOrgName') }}"
+        });
+        {% endif %}
+
+        {% if length > 2 %}
+        Object.assign(batchData, {
+            pharmacyOrg: "{{ batch[2].get('data').get('PhmOrgName') }}",
+            shipDate: "{{ batch[2].get('data').get('shipdate') }}",
+            deliveryDate: "{{ batch[2].get('data').get('estdate') }}"
+        });
+        {% endif %}
+
+        {% if length > 3 %}
+        Object.assign(batchData, {
+            batchAccepted: "{{ batch[3].get('data').get('responsibility') }}"
+        });
+        {% endif %}
+
+
+        const qrText = Object.entries(batchData).map(([key, value]) => `${key} ${value}`).join('\n');
+
+
+        QRCode.toDataURL(qrText)
+            .then(url => qrimg.src = url)
+            .catch(err => console.error(err));
+
+        document.querySelector(".qrcode").style.display = "block";
+    });
+</script>
+{% else %}
+{% endif %}
+<script>
+    const input = document.getElementById('batchID');
+
+    input.addEventListener('input', (e) => {
+        let value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+
+        if (value.length > 0) {
+            value = value.replace(
+                /^([A-Z]{0,3}\d{0,3})(\d{0,4})(\d{0,2})(\d{0,2})([A-Z0-9]*)$/,
+                (match, p1, p2, p3, p4, p5) => {
+                    let res = p1;
+                    if (p2) res += '-' + p2;
+                    if (p3) res += p3; 
+                    if (p4) res += p4;
+                    if (p5) res += '-' + p5;
+                    return res;
+                }
+            );
+        }
+
+        e.target.value = value;
+    });
+
+
+
+</script>
+
+
+</html>

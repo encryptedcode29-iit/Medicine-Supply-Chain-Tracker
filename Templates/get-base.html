@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="/static/images/logo.jpg">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+
+    <title>{{title}}</title>
+
+
+
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            font-family: 'Courier New', Courier, monospace;
+
+        }
+
+        .main {
+            display: flex;
+            flex-direction: row;
+            height: 100%;
+            background: linear-gradient();
+            overflow: hidden;
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            width: 300px;
+            height: 100%;
+            gap: 10px;
+            border-radius: 5px;
+
+            box-shadow: 3px 3px 10px 5px rgb(166, 166, 180);
+            padding-top: 10px;
+            overflow: hidden;
+            transition: width 1s ease, opacity 1s ease, padding 1s ease;
+            flex-shrink: 0;
+        }
+
+
+        .sidebar.hidden {
+            width: 0;
+            opacity: 0;
+            padding: 0;
+        }
+
+        #toggleButton.hidden {
+            position: fixed;
+        }
+
+        .sections {
+            width: 100%;
+        }
+
+        .icon {
+            display: flex;
+            justify-content: center;
+            padding-bottom: 10px;
+        }
+        .btn {
+            border-radius: 5px;
+            cursor: pointer;
+            height: 35px;
+            width: 65px;
+            margin: 5px 0 5px  0;
+           font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+           font-size: 14px;
+           font-weight: 600;
+           color: #f9f9f9;
+           border: 1px solid #ccc;
+        }
+
+        .elem {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            width: 90%;
+            margin: auto;
+            font-size: 15px;
+            text-decoration: none;
+            color: rgb(54, 54, 54);
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .elem:hover {
+            background-color: rgb(162, 162, 255);
+            font-size: 16px;
+        }
+
+        .logout {
+            margin-top: auto;
+            width: 100%;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .logout-btn {
+            display: block;
+            width: 90%;
+            margin: auto;
+            padding: 10px;
+            font-size: 17px;
+            border-radius: 8px;
+            text-align: center;
+            font-family: 'Courier New', Courier, monospace;
+            text-decoration: none;
+            font-weight: bold;
+            color: rgb(249, 115, 115);
+            transition: 0.3s;
+        }
+
+        .logout-btn:hover {
+            background-color: rgb(236, 52, 52);
+            color: white;
+            font-size: 18px;
+        }
+
+        .main-content {
+            margin: 0;
+            padding: 10px;
+            width: 100%;
+            overflow: auto;
+
+        }
+
+
+        table {
+            width: 95%;
+            min-width: 750px;
+            border-collapse: collapse;
+
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            font-family: 'Inter', sans-serif;
+
+            background-color: white;
+            transition: 1s;
+           
+        }
+
+        th,
+        td {
+            padding: 12px 15px;
+            border: 1px solid black;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: rgb(162, 162, 255);
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .info,.table-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        
+
+        @media (max-width : 600px) {
+            
+            .sidebar {
+                width: 90%;
+                flex-shrink: 0;
+                position: fixed;
+                background-color: white;
+
+            }
+            .table-wrapper {
+          display: block;  
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+            .card {
+                font-weight: 400;
+                padding: 10px;
+                gap: 10px;
+            }
+
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        {% block sidebar %}{% endblock %}
+        <div class="main-content">
+            <button onclick="toggleSidebar()" id="toggleButton"> Close Sidebar </button>
+
+            <div class="info">
+                {% block info %}{% endblock %}
+
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById("sidebar");
+            const button = document.getElementById("toggleButton");
+            const table_data = document.querySelector("table")
+
+            sidebar.classList.toggle("hidden");
+            button.classList.toggle("hidden");
+
+            if (sidebar.classList.contains("hidden")) {
+                button.textContent = "Open Sidebar";
+                table_data.style.width = "75%";
+            } else {
+                button.textContent = "Close Sidebar";
+                table_data.style.width = "95%";
+            }
+        }
+    </script>
+    <script>
+        function autoCloseSidebarOnMobile() {
+            const sidebar = document.getElementById("sidebar");
+            const button = document.getElementById("toggleButton");
+
+            if (window.innerWidth < 600) {
+                if (!sidebar.classList.contains("hidden")) {
+                    sidebar.classList.add("hidden");
+                    button.textContent = "Open Sidebar";
+                }
+            }
+        }
+
+        autoCloseSidebarOnMobile();
+
+        window.addEventListener("resize", autoCloseSidebarOnMobile);
+    </script>
+
+</body>
+
+</html>
+
+
+

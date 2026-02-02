@@ -1,0 +1,97 @@
+{% extends "get-base.html" %}
+{% block sidebar%}
+<div class="sidebar" id="sidebar">
+    <div class="sections">
+        <a href="#" class="nav icon">
+            <img src="\static\images\logo.jpg" alt="_Logo_" width="85px" height="75px">
+        </a>
+
+
+        <hr style="width:100%; border: 1px solid rgb(210,210,210);">
+        <a class="elem" href="/distributor/dashboard">📊 Dashboard</a>
+        <a class="elem" href="/distributor/incoming">📦 Incoming Shipments</a>
+        <a class="elem" href="/distributor/history">🚚 Shipment History</a>
+    </div>
+    <div class="logout">
+        <a href="/logout" class="logout-btn">🚪Logout</a>
+    </div>
+</div>
+
+
+
+
+
+{%endblock%}{% block info %}
+<h2>Details of your Past Batches</h2>
+{% if batches %}
+<div class="table-wrapper">
+
+    <table>
+        <thead>
+            <tr>
+                <th>S No.</th>
+                <th>Batch ID</th>
+                <th>Manufacturing Organization</th>
+                <th>Medicine Name</th>
+                <th>Quantity</th>
+                <th>Vehicle Number</th>
+                <th>Driver Name</th>
+                <th>Shipping Date</th>
+                <th>Delivery Date</th>
+                <th>Batch Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for batch in batches %}
+            {% set chain_len = batch.initialdata | length %}
+
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ batch.batchID }}</td>
+
+                <td>{{ batch.initialdata[0].data.MfgOrgName }}</td>
+                <td>{{ batch.initialdata[0].data.medname }}</td>
+                <td>{{ batch.initialdata[0].data.quantity }}</td>
+
+                <td>{{ batch.initialdata[1].data.vnum }}</td>
+                <td>{{ batch.initialdata[1].data.dvrname }}</td>
+                <td>{{ batch.initialdata[1].data.shipdate }}</td>
+
+                <td>
+                    {% if chain_len > 1 %}
+                    {{ batch.initialdata[1].data.deldate }}
+                    {% elif chain_len > 2 %}
+                    {{ batch.initialdata[2].data.estdate }}
+                    {% else %}
+                    N/A
+                    {% endif %}
+                </td>
+
+                <td>
+                    {% if chain_len == 2 %}
+                    Delivered to Distributor
+                    {% elif chain_len == 3 %}
+                    Pharmacy allotted · In Transit
+                    {% elif chain_len >= 4 and batch.initialdata[3].data.get("responsibility") == "True" %}
+                    Verified by Pharmacy
+                    {% else %}
+                    Rejected by Pharmacy
+                    {% endif %}
+                </td>
+            </tr>
+
+            {% endfor %}
+        </tbody>
+
+    </table>
+</div>
+{% else %}
+<br>
+<div class="form-control error"
+    style="background-color: rgb(102, 102, 102);color: white;text-align: center; font-size: 25px; font-weight: 400;width: 80%;">
+
+    <p style="margin: 0;">No batches present as of now</p>
+</div>
+{% endif %}
+
+{% endblock %}

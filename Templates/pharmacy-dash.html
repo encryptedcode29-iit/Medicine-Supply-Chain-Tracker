@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    {% extends "base.html" %}
+    {% block sidebar %}
+    <div class="sidebar" id="sidebar">
+        <div class="sections">
+            <a href="#" class="nav icon">
+                <img src="\static\images\logo.jpg" alt="_Logo_" width="85px" height="75px">
+            </a>
+
+
+            <hr style="width:90%; border: 1px solid rgb(210,210,210);">
+            <a class="elem">📊 Dashboard</a>
+            <a href="/pharmacy/incoming" class="elem">📦 Incoming Batches</a>
+            <a class="elem" href="/pharmacy/history">🚚 Batch History</a>
+        </div>
+        <div class="logout">
+            <a href="/logout" class="logout-btn">🚪Logout</a>
+        </div>
+    </div>
+    {% endblock %}
+
+</body>
+
+</html>

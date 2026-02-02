@@ -1,0 +1,95 @@
+{% extends "get-base.html" %}
+{% block sidebar%}
+            <div class="sidebar" id="sidebar">
+            <div class="sections">
+                <a href="#" class="nav icon">
+                    <img src="\static\images\logo.jpg" alt="_Logo_"
+                        width="85px" height="75px">
+                </a>
+
+                
+                <hr style="width:90%; border: 1px solid rgb(210,210,210);">
+                <a href="/manufacturer/dashboard" class="elem"> 📊 Dashboard</a>
+                <a href="/manufacturer/create-batch" class="elem"> ➕ Create Batch</a>
+                <a href="#" class="elem"> 🚚 Outgoing Shipments</a>
+                <a href="/manufacturer/history" class="elem"> 📦 Batch History</a>
+            </div>
+            <div class="logout">
+                <a href="/logout" class="logout-btn">🚪Logout</a>
+            </div>
+        </div>
+
+
+
+
+
+    {%endblock%}{% block info %}
+<h2>Details of your Recent Batches not Shipped</h2>
+{% if batches %}
+<div class="table-wrapper">
+
+    <table>
+        <thead>
+            <tr>
+                <th>S No.</th>
+                <th>Batch ID</th>
+                <th>Medicine Name</th>
+                <th>Quantity</th>
+                <th>Mfg Date</th>
+                <th>Exp Date</th>
+                <th>Certificate</th>
+                <th>Lab Report</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            {% for batch in batches %}
+            <tr>
+                
+                <td>{{ loop.index }}</td>
+                <td>{{ batch.batchID }}</td>
+                <td>{{ batch.data.medname }}</td>
+                <td>{{ batch.data.quantity }}</td>
+                <td>{{ batch.data.mfgdate }}</td>
+                <td>{{ batch.data.expdate }}</td>
+                
+                <td>
+                    {% if batch.data.get("files", {}).get("certificate") %}
+        <a href="{{ batch.data.files.certificate }}">Download Certificate</a>
+                    {% else %}
+                    N/A
+                    {% endif %}
+                </td>
+                <td>
+                    {% if batch.data.files and batch.data.files.labReport %}
+                    <a href="{{ batch.data.files.labReport }}">Download Lab Report</a>
+                    {% else %}
+                    N/A
+                    {% endif %}
+                </td>
+                <td>
+                    {% if batch.data.description %}
+                    {{batch.data.description}}
+                    {% else %}
+                    N/A
+                    {% endif %}
+                </td>
+                <td>
+                    <button class="btn" style="background-color: rgb(38, 181, 38);" onclick="window.location.href = '/manufacturer/forward/{{batch.batchID}}'">Verify</button>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<br>
+<div class="form-control error" style="background-color: rgb(102, 102, 102);color: white;text-align: center; font-size: 25px; font-weight: 400;width: 80%;">
+
+    <p style="margin: 0;">No batches present as of now</p>  
+</div>
+{% endif %}
+
+{% endblock %}

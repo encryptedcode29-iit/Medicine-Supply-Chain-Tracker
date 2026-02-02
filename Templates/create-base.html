@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="/static/images/logo.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200..900&display=swap" rel="stylesheet">
+
+    <title>{{ title }}</title>
+
+
+
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            font-family: 'Courier New', Courier, monospace;
+
+        }
+
+        .main {
+            display: flex;
+            flex-direction: row;
+            height: 100%;
+            background: linear-gradient();
+            overflow: hidden;
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            width: 300px;
+            height: 100%;
+            gap: 10px;
+            border-radius: 5px;
+
+            box-shadow: 3px 3px 10px 5px rgb(166, 166, 180);
+            padding-top: 10px;
+            overflow: hidden;
+            transition: width 1s ease, opacity 1s ease, padding 1s ease;
+            flex-shrink: 0;
+        }
+
+
+        .sidebar.hidden {
+            width: 0;
+            opacity: 0;
+            padding: 0;
+        }
+
+        #toggleButton.hidden {
+            position: fixed;
+            margin-bottom: 10px;
+        }
+
+        .sections {
+            width: 100%;
+        }
+        
+
+        .icon {
+            display: flex;
+            justify-content: center;
+            padding-bottom: 10px;
+        }
+
+        .elem {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            width: 90%;
+            margin: auto;
+            font-size: 15px;
+            text-decoration: none;
+            color: rgb(54, 54, 54);
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .elem:hover {
+            background-color: rgb(162, 162, 255);
+            font-size: 16px;
+        }
+
+        .logout {
+            margin-top: auto;
+            width: 100%;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        #mfgID:focus,
+        #orgnm:focus {
+            outline: none;
+        }
+
+        .logout-btn {
+            display: block;
+            width: 90%;
+            margin: auto;
+            padding: 10px;
+            font-size: 17px;
+            border-radius: 8px;
+            text-align: center;
+            font-family: 'Courier New', Courier, monospace;
+            text-decoration: none;
+            font-weight: bold;
+            color: rgb(249, 115, 115);
+            transition: 0.3s;
+        }
+
+        .logout-btn:hover {
+            background-color: rgb(236, 52, 52);
+            color: white;
+            font-size: 18px;
+        }
+
+        .main-content {
+            margin: 0;
+            padding: 10px;
+            width: 100%;
+            overflow-y: auto;
+
+        }
+
+
+        .formcontainer {
+            display: flex;
+            margin-top: 10px;
+            justify-content: center;
+        }
+
+
+        .form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 10px 50px 10px;
+            font-family: "Noto Serif JP", serif;
+            width: 85%;
+            border-radius: 15px;
+            box-shadow: 1px 1.3px 8px rgb(37, 33, 33);
+            margin-bottom: 30px;
+            background-color: #fff;
+
+        }
+
+        .ids {
+            width: 100%;
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+
+        }
+
+
+        input[type="text"],
+        input[type="date"],
+        input[type="number"],
+        textarea,
+        select {
+            border: 1px solid #ccc;
+            padding: 8px 12px;
+            border-radius: 6px;
+            width: 60%;
+            outline: none;
+            transition: border-color 0.3s;
+            box-sizing: border-box;
+            background-color: #fff;
+        }
+
+        textarea {
+            width: 100%;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            border-color: #4caf50;
+            box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+        }
+
+
+
+        /* Readonly / disabled inputs */
+        input[readonly],
+        input:disabled,
+        textarea[readonly],
+        textarea:disabled {
+            background-color: #eee;
+            color: #555;
+            cursor: not-allowed;
+            border-color: #ccc;
+            box-shadow: none;
+        }
+
+        /* Textarea sizing */
+        textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            background-color: #4caf50;
+            color: white;
+            cursor: pointer;
+            width: 35%;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+        .btn.secondary {
+            background-color: #ccc;
+            color: black;
+            width: 25%;
+        }
+
+        .btn.secondary:hover {
+            background-color: #bbb;
+        }
+
+        .idcontent {
+            width: 50%;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+
+        .idcontent.dmfg {
+            gap: 8px;
+            text-align: center;
+        }
+
+        .btn-base {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .damn {
+            justify-content: center;
+            align-items: center;
+            width: 60%;
+            margin-top: 35px;
+        }
+
+        .safe {
+            width: 92%;
+            margin: 25px 0 0 15px;
+        }
+
+        @media (max-width : 600px) {
+            .sidebar {
+                width: 90%;
+                flex-shrink: 0;
+                position: fixed;
+                background-color: white;
+
+            }
+
+            .idcontent {
+                width: 100%;
+                flex-direction: column;
+                justify-content: left;
+                margin: 5px 0 5px 0;
+                gap: 4px;
+
+            }
+
+            input[type="text"],
+            input[type="date"],
+            input[type="number"],
+            input[type="file"],
+            select {
+                width: 100%;
+                text-align: center;
+            }
+
+            input[type="file"] {
+                margin: 10px 0 0 10px;
+            }
+
+
+            .form {
+
+                width: 95% !important;
+            }
+
+            .card {
+                font-weight: 400;
+                padding: 10px;
+                gap: 10px;
+            }
+
+            .ids {
+                flex-direction: column;
+                width: 90%;
+
+            }
+
+
+
+
+            .btn,
+            .btn.secondary {
+                width: 100%;
+                min-height: 50px;
+            }
+
+            .btn-base {
+                flex-direction: column;
+            }
+
+            .idcontent.dmfg {
+                gap: 0px;
+                text-align: left;
+            }
+
+            .safe {
+                width: 95%;
+            }
+
+
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        {% block sidebar %}{% endblock %}
+        <div class="main-content">
+            <button onclick="toggleSidebar()" id="toggleButton"> Close Sidebar </button>
+
+            {% block formcontainer %}
+
+            {% endblock %}
+
+            <div class="content">
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById("sidebar");
+            const button = document.getElementById("toggleButton");
+            const form_block = document.querySelector(".form")
+
+            sidebar.classList.toggle("hidden");
+            button.classList.toggle("hidden");
+
+            if (sidebar.classList.contains("hidden")) {
+                button.textContent = "Open Sidebar";
+                form_block.style.width = "77%";
+            } else {
+                button.textContent = "Close Sidebar";
+                form_block.style.width = "85%";
+            }
+        }
+    </script>
+    <script>
+        function autoCloseSidebarOnMobile() {
+            const sidebar = document.getElementById("sidebar");
+            const button = document.getElementById("toggleButton");
+
+            if (window.innerWidth < 600) {
+                if (!sidebar.classList.contains("hidden")) {
+                    sidebar.classList.add("hidden");
+
+                    button.textContent = "Open Sidebar";
+                }
+            }
+        }
+
+        autoCloseSidebarOnMobile();
+
+        window.addEventListener("resize", autoCloseSidebarOnMobile);
+    </script>
+
+</body>
+
+</html>
+
+
+
