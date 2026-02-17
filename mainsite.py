@@ -6,7 +6,7 @@ import httpx
 from firebase_admin import auth, db, credentials
 import firebase_admin
 from fastapi.templating import Jinja2Templates
-from fastapi.responses import HTMLResponse,PlainTextResponse,RedirectResponse,JSONResponse
+from fastapi.responses import HTMLResponse,RedirectResponse
 from starlette.middleware.sessions import SessionMiddleware
 from datetime import datetime
 import os   
@@ -33,10 +33,19 @@ SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_KEY = os.getenv("SUPABASE_KEY")
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
-
-cred = credentials.Certificate(os.getenv("file"))
-firebase_admin.initialize_app(cred, {"databaseURL": os.getenv("url")})
-
+firebase_json_raw = os.getenv("file")
+if firebase_json_raw:
+    try:
+        cert_dict = json.loads(firebase_json_raw)
+        
+        if "private_key" in cert_dict:
+            cert_dict["private_key"] = cert_dict["private_key"].replace("\\n", "\n")
+            
+        if not firebase_admin._apps:
+            cred = credentials.Certificate(cert_dict)
+            firebase_admin.initialize_app(cred, {"databaseURL": os.getenv("url")})
+    except Exception as e:
+        print(f"Firebase Init Error: {e}")
 templates = Jinja2Templates(directory="Templates")
 @app.get("/",response_class=HTMLResponse)
 def home(request : Request):
@@ -868,7 +877,6 @@ def compute_hash(block_data: dict) -> str:
         "prev_hash": block_data["prev_hash"]
     }
     encoded = json.dumps(block_copy, sort_keys=True).encode()
-    print( hashlib.sha256(encoded).hexdigest())
     return hashlib.sha256(encoded).hexdigest()
 
 def verify_chain(blocks: list) -> int:
@@ -940,7 +948,6 @@ async def qrgen(
 
         final_status = f"{status_msg} {stat[tamper_code]}"
 
-        print("lauda") 
         return templates.TemplateResponse(
             "qr-verify.html",
             {
