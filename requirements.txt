@@ -4,12 +4,8 @@ jinja2
 python-multipart
 supabase
 firebase-admin
-pandas
-pillow
-python-docx
-PyMuPDF
+httpx
+python-dotenv
+itsdangerous
+starlette
 requests
-google-cloud-firestore
-google-cloud-storage
-
-
