@@ -19,10 +19,8 @@ FIREBASE_API_KEY = os.getenv("FIREBASE_API_KEY")
 app = FastAPI()
 load_dotenv() 
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-STATIC_DIR = os.path.join(BASE_DIR, "static")
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
-app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 app.add_middleware(
     SessionMiddleware,
     secret_key = os.getenv("secret"),
