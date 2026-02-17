@@ -37,7 +37,7 @@ supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 cred = credentials.Certificate(os.getenv("file"))
 firebase_admin.initialize_app(cred, {"databaseURL": os.getenv("url")})
 
-templates = Jinja2Templates(directory="templates")
+templates = Jinja2Templates(directory="Templates")
 @app.get("/",response_class=HTMLResponse)
 def home(request : Request):
     return templates.TemplateResponse("home.html",{"request": request})
